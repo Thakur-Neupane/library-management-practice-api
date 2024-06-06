@@ -5,7 +5,7 @@ const app = express();
 const PORT = process.env.PORT || 8000;
 
 // connect mongodb
-import { connnectMongoDB } from "./src/config/mongoConfig";
+import { connnectMongoDB } from "./src/config/mongoConfig.js";
 connnectMongoDB();
 
 // middlewares
@@ -41,5 +41,5 @@ app.use((error, req, res, next) => {
 app.listen(PORT, (error) => {
   error
     ? console.log(error)
-    : console.log("Server is running at http://localhost:${PORT}");
+    : console.log(`Server is running at http://localhost:${PORT}`);
 });
