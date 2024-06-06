@@ -1,0 +1,3 @@
+@rootURL= http://localhost:8000
+@rootEP={{rootURL}}/api/v1
+@userAPI= {{rootEP}}/users
