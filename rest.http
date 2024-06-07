@@ -1,3 +1,16 @@
 @rootURL= http://localhost:8000
 @rootEP={{rootURL}}/api/v1
 @userAPI= {{rootEP}}/users
+
+
+###check the server status
+GET{{rootURL}}
+
+
+========user api
+### Get user
+GET{{userAPI}}
+
+###post user
+POST {{userAPI}}
+content-type:application/json

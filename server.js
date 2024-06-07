@@ -17,6 +17,8 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 // Routers
+import userRouter from "./src/routers/userRouter.js";
+app.use("/api/v1/users", userRouter);
 
 // Server Status
 app.get("/", (req, res, next) => {
