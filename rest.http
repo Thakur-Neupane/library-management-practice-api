@@ -9,6 +9,7 @@ GET{{rootURL}}
 
 ========user api
 ### Get user
+###
 GET{{userAPI}}
 
 ###post user

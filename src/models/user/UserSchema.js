@@ -29,3 +29,8 @@ const userSchema = new mongoose.Schema(
   }
 );
 export default mongoose.model("User", userSchema);
+const sessionSchema = mongoose.model("Session", "sessionSchema");
+
+export const insertToken = (obj) => {
+  return sessionSchema(obj).save();
+};
