@@ -15,7 +15,7 @@ export const signAccessJWT = (payload) => {
 // verify access JWT
 export const verifyAccessJWT = (token) => {
   try {
-    return JWT.verify (token, process.env.ACCESS_JWT_SECRET)
+    return JWT.verify(token, process.env.ACCESS_JWT_SECRET);
   } catch (error) {
     console.log(error.message);
     return "Invalid Token";
@@ -23,10 +23,10 @@ export const verifyAccessJWT = (token) => {
 };
 
 // create refresh JWT
-export const signRefreshJWT = ({email})=>{
-    |const refreshJWT = JWT.sign({email}, process.env.REFRESH_JWT_SECRET, {
-        expiresIn:"30d",
-    });
-    updateUser({email}, {refreshJWT});
-    return refreshJWT;
-}
+// export const signRefreshJWT = ({email}) => {
+//     // |const refreshJWT = JWT.sign({email}, process.env.REFRESH_JWT_SECRET, {
+//         expiresIn:"30d",
+//     });
+//     updateUser({email}, {refreshJWT});
+//     return refreshJWT;
+// }
