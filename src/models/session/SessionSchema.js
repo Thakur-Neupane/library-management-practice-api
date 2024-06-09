@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+
 const sessionSchema = new mongoose.Schema(
   {
     token: {
@@ -14,12 +15,16 @@ const sessionSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
-const SessionSchema = mongoose.model("Session", "sessionSchema");
+
+const SessionSchema = mongoose.model("Session", sessionSchema);
+
+//just to show that we can write bot schema and model in the same file
+//Queries
 
 export const insertToken = (obj) => {
   return SessionSchema(obj).save();
 };
 
 export const findToken = (token) => {
-  return sessionSchema.findOne({ token });
+  return SessionSchema.findOne({ token });
 };

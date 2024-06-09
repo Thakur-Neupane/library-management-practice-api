@@ -1,18 +1,17 @@
 import JWT from "jsonwebtoken";
-import { insertToken } from "../models/session/SessionSchema";
-import { updateUser } from "../models/user/UserModel";
+import { insertToken } from "../models/session/SessionSchema.js";
+import { updateUser } from "../models/user/UserModel.js";
 
-// Create access JWT
-export const signAccessJWT = (payload) => {
+// create acess jwt
+export const singAccessJWT = (payload) => {
   const token = JWT.sign(payload, process.env.ACCESS_JWT_SECRET, {
     expiresIn: "15m",
   });
-
   insertToken({ token });
   return token;
 };
 
-// verify access JWT
+// verify acess jwt
 export const verifyAccessJWT = (token) => {
   try {
     return JWT.verify(token, process.env.ACCESS_JWT_SECRET);
@@ -22,11 +21,12 @@ export const verifyAccessJWT = (token) => {
   }
 };
 
-// create refresh JWT
-// export const signRefreshJWT = ({email}) => {
-//     // |const refreshJWT = JWT.sign({email}, process.env.REFRESH_JWT_SECRET, {
-//         expiresIn:"30d",
-//     });
-//     updateUser({email}, {refreshJWT});
-//     return refreshJWT;
-// }
+// create refresh jwt
+export const singRefresJWT = ({ email }) => {
+  const refreshJWT = JWT.sign({ email }, process.env.REFRESH_JWT_SECRET, {
+    expiresIn: "30d",
+  });
+  updateUser({ email }, { refreshJWT });
+  return refreshJWT;
+};
+// verify refresh jwt

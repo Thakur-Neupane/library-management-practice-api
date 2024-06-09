@@ -4,42 +4,45 @@ import cors from "cors";
 const app = express();
 const PORT = process.env.PORT || 8000;
 
-// connect mongodb
-import { connnectMongoDB } from "./src/config/mongoConfig.js";
-connnectMongoDB();
+//connect mongodb
+import { connectMongoDB } from "./src/config/monogoConfig.js";
+connectMongoDB();
 
 // middlewares
 app.use(cors());
 app.use(express.json());
 
 if (process.env.NODE_ENV !== "production") {
+  // you can leave this for the prod as well to track the user requestes
   app.use(morgan("dev"));
 }
 
-// Routers
-import userRouter from "./src/routers/userRouter.js";
-app.use("/api/v1/users", userRouter);
+//rotuers
+import userRoter from "./src/routers/userRouter.js";
+app.use("/api/v1/users", userRoter);
 
-// Server Status
+//server status
 app.get("/", (req, res, next) => {
-  res.json({ message: "Server is running healthy" });
+  res.json({ message: "server is healthy" });
 });
+
 app.use("*", (req, res, next) => {
-  const err = new Error("404 not found");
+  const err = new Error("404 Not Found");
   err.status = 404;
   next(err);
 });
 
-// global error handling
+//global error handler
 app.use((error, req, res, next) => {
-  console.log(error.status);
+  console.log(error);
 
   res.status(error.status || 500);
   res.json({
     status: "error",
-    message: "error.message",
+    message: error.message,
   });
 });
+
 app.listen(PORT, (error) => {
   error
     ? console.log(error)

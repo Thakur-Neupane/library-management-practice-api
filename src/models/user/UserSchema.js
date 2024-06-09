@@ -1,10 +1,16 @@
 import mongoose from "mongoose";
+
 const userSchema = new mongoose.Schema(
   {
+    role: {
+      type: String,
+      default: "student",
+    },
     fName: {
       type: String,
       required: true,
     },
+
     lName: {
       type: String,
       required: true,
@@ -16,21 +22,21 @@ const userSchema = new mongoose.Schema(
     email: {
       type: String,
       unique: true,
-      required: true,
       index: 1,
+      required: true,
     },
     password: {
       type: String,
       required: true,
+    },
+    refreshJWT: {
+      type: String,
+      default: "",
     },
   },
   {
     timestamps: true,
   }
 );
-export default mongoose.model("User", userSchema);
-const sessionSchema = mongoose.model("Session", "sessionSchema");
 
-export const insertToken = (obj) => {
-  return sessionSchema(obj).save();
-};
+export default mongoose.model("User", userSchema);
