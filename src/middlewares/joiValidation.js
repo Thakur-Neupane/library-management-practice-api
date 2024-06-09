@@ -1,15 +1,12 @@
 import Joi from "joi";
 
-export const newUserValidation = (req, res, next) => {
-  try {
-    const schema = Joi.object({
-      fName: Joi.string().required(),
-      lName: Joi.string().required(),
-      phone: Joi.string().allow("", null),
-      email: Joi.string().email({ minDomainSegments: 2 }),
-      password: Joi.string().required(),
-    });
+const STR = Joi.string();
+const STR_REQUIRED = Joi.string().required();
+const PHONE = Joi.string().allow("", null);
+const EMAIL = Joi.string().email({ minDomainSegments: 2 });
 
+const joiValidator = ({ req, res, next, schema }) => {
+  try {
     const { error } = schema.validate(req.body);
     error
       ? res.json({
@@ -20,4 +17,27 @@ export const newUserValidation = (req, res, next) => {
   } catch (error) {
     next(error);
   }
+};
+
+export const newUserValidation = (req, res, next) => {
+  const schema = Joi.object({
+    fName: STR_REQUIRED,
+    lName: STR_REQUIRED,
+    phone: PHONE,
+    email: EMAIL,
+    password: STR_REQUIRED,
+  });
+  return joiValidator({ req, res, next, schema });
+};
+
+export const newBookValidation = (req, res, next) => {
+  const schema = Joi.object({
+    title: STR_REQUIRED,
+    author: STR_REQUIRED,
+    thumbnail: STR_REQUIRED,
+    isbn: STR_REQUIRED,
+    publishedYear: Joi.number(),
+    description: STR_REQUIRED,
+  });
+  return joiValidator({ req, res, next, schema });
 };
